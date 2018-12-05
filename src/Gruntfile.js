@@ -30,17 +30,24 @@ module.exports = function(grunt) {
           'app/*.js',
           'pages/**/*.js'
         ],
-        dest: 'build/<%= pkg.name %>.min.js'
+        dest: 'build/teste-pratico.min.js'
       }
     },
     uglify: {
       options: {
-        banner: "/*! <%= pkg.name %> <%= grunt.template.today('dd-mm-yyyy') %> */\n"
+        banner: "/*! teste-pratico <%= grunt.template.today('dd-mm-yyyy') %> */\n"
       },
       dist: {
         files: [{
           "<%= concat.modulos.dest %>": ["<%= concat.modulos.dest %>"]
         }]
+      }
+    },
+    processhtml: {
+      build: {
+        files: {
+          "build/index.html": ["index.html"]
+        }
       }
     },
   });
@@ -50,13 +57,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-processhtml');
 
   // Default task(s).
   grunt.registerTask('default', [
     'clean:inicio',
     'copy:arquivos',
     'concat:modulos',
-    'uglify'
+    'uglify',
+    'processhtml'
   ]);
 
 };
